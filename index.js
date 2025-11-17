@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { MessagingResponse } from "twilio/lib/twiml.js";
+import twilio from "twilio";
+
+const MessagingResponse = twilio.twiml.MessagingResponse;
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
