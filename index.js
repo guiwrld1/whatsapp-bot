@@ -1,20 +1,21 @@
-import express from "express"
-import bodyParser from "body-parser"
-import MessagingResponse from "twilio/lib/twiml/MessagingResponse.js"
+const express = require("express");
+const bodyParser = require("body-parser");
+const { MessagingResponse } = require("twilio").twiml;
 
-const app = express()
-app.use(bodyParser.urlencoded({ extended: false }))
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/webhook", (req, res) => {
-  const twiml = new MessagingResponse()
-  twiml.message("Recebi a tua mensagem mano já estamos vivos 😎")
+  const twiml = new MessagingResponse();
+  twiml.message("Recebi a tua mensagem mano já estamos vivos 😎");
 
-  res.type("text/xml")
-  res.send(twiml.toString())
-})
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  res.end(twiml.toString());
+});
 
 app.get("/", (req, res) => {
-  res.send("Bot WhatsApp está a bombar 💥")
-})
+  res.send("Bot WhatsApp está a bombar 💥");
+});
 
-app.listen(3000, () => console.log("Servidor ON na porta 3000"))
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor ON na porta ${PORT}`));
