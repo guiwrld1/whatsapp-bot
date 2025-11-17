@@ -2,17 +2,16 @@ import express from "express";
 import bodyParser from "body-parser";
 import twilio from "twilio";
 
-const MessagingResponse = twilio.twiml.MessagingResponse;
-
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/webhook", (req, res) => {
-  const twiml = new MessagingResponse();
+  // Cria a resposta TwiML
+  const twiml = new twilio.twiml.MessagingResponse();
   twiml.message("Recebi a tua mensagem mano já estamos vivos 😎");
 
-  res.type("text/xml");
-  res.send(twiml.toString());
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  res.end(twiml.toString());
 });
 
 app.get("/", (req, res) => {
