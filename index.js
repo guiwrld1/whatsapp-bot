@@ -6,7 +6,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/webhook", (req, res) => {
-  // Cria a resposta TwiML
   const twiml = new twilio.twiml.MessagingResponse();
   twiml.message("Recebi a tua mensagem mano já estamos vivos 😎");
 
@@ -18,5 +17,6 @@ app.get("/", (req, res) => {
   res.send("Bot WhatsApp está a bombar 💥");
 });
 
+// usar a porta do Render ou 3000 local
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor ON na porta ${PORT}`));
